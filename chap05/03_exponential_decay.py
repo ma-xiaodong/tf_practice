@@ -3,16 +3,16 @@ import numpy as np
 
 learning_rate = 0.1
 decay_rate = 0.96
-global_steps = 1000
-decay_steps = 100
+global_steps = 100
+decay_steps = 20
 
 global_ = tf.Variable(tf.constant(0))
-c = tf.train.exponential_decay(learning_rate, global_, decay_steps, decay_rate)
+c = tf.train.exponential_decay(learning_rate, global_, decay_steps, decay_rate, staircase = True)
 d = tf.train.exponential_decay(learning_rate, global_, decay_steps, decay_rate, staircase = False)
 T_C = []
 F_D = []
 
-with tf.Session() as sess:
+with tf.Session() as sess, tf.device('/cpu:0'):
     for i in range(global_steps):
 	T_c = sess.run(c, feed_dict = {global_: i})
 	T_C.append(T_c)

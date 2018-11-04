@@ -43,6 +43,5 @@ with tf.Session() as sess:
 	sess.run(train_step, feed_dict = {x: X[start: end], y_: Y[start: end]})
 
 	if i % 100 == 0:
-	    print "Total mse loss: "
-	    print sess.run(mse_loss, feed_dict = {x: X, y_: Y})
+	    print "Total mse loss: ", sess.run(mse_loss, feed_dict = {x: X, y_: Y})
 

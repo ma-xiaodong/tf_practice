@@ -14,12 +14,12 @@ FC_SIZE = 512
 LEARNING_RATE_BASE = 0.3 
 LEARNING_RATE_DECAY = 0.99
 REGULARIZATION_RATE = 0.0001
-TRAINING_STEPS = 40000
+TRAINING_STEPS = 20000
 MOVING_AVERAGE_DECAY = 0.99
 
 DATA_PATH = "/home/mxd/software/data/MNIST"
 MODEL_SAVE_PATH = "/home/mxd/software/github/tf_practice/chap10/models"
-MODEL_NAME = "lenet"
+MODEL_NAME = "mnist"
 
 def inference(input_tensor, train, regularizer):
     with tf.variable_scope("layer1-conv1"):

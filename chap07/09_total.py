@@ -51,8 +51,8 @@ def read_tfrecord():
     decoded_image.set_shape([height, width, 1])
 
 def main(argv = None):
-    # write_tfrecord()
-    read_tfrecord()
+    write_tfrecord()
+    # read_tfrecord()
 
 if __name__ == '__main__':
     tf.app.run()

@@ -88,14 +88,13 @@ def main(argv = None):
 	    if grad is not None:
 		tf.summary.histogram('grad_on_avg/%s' % var.op.name, grad)
 
-        apply_gradients_op = opt.apply_gradients(grads, 
-	    global_step = global_step)
+        apply_gradients_op = opt.apply_gradients(grads, global_step = global_step)
 	for var in tf.trainable_variables():
 	    tf.summary.histogram(var.op.name, var)
 	
-	variable_average = tf.train.ExponentialMovingAverage(
-	    mnist_inference.MOVING_AVERAGE_DECAY, global_step)
-	variable_average_op = variable_average.apply(tf.trainable_variables())
+	variable_average = tf.train.ExponentialMovingAverage(mnist_inference.MOVING_AVERAGE_DECAY, global_step)
+	variables_to_average = (tf.trainable_variables() + tf.moving_average_variables())
+	variable_average_op = variable_average.apply(variables_to_average)
 
 	train_op = tf.group(apply_gradients_op, variable_average_op)
 
@@ -132,7 +131,7 @@ def main(argv = None):
 			mnist_inference.MODEL_NAME)
 		    saver.save(sess, checkpoint_path, global_step = step)
             coord.request_stop()
-	    concat.join(threads)
+	    coord.join(threads)
 
 if __name__ == '__main__':
     tf.app.run()
